@@ -1947,7 +1947,6 @@ var _iconsSvg = require("../../img/icons.svg");
 var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
 var _fractionJs = require("fraction.js");
 var _fractionJsDefault = parcelHelpers.interopDefault(_fractionJs);
-console.log((0, _fractionJsDefault.default));
 class RecipeView {
     #parentElement = document.querySelector('.recipe');
     #data;
