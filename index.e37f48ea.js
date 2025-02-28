@@ -1943,12 +1943,10 @@ exports.export = function(dest, destName, get) {
 },{}],"l60JC":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-var _iconsSvg = require("../../img/icons.svg");
-var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
 var _fractionJs = require("fraction.js");
 var _fractionJsDefault = parcelHelpers.interopDefault(_fractionJs);
 console.log('here');
-console.log((0, _iconsSvgDefault.default));
+console.log(icons);
 class RecipeView {
     #parentElement = document.querySelector('.recipe');
     #data;
@@ -1965,7 +1963,7 @@ class RecipeView {
         const markup = `
       <div class="spinner">
         <svg>
-          <use href="${(0, _iconsSvgDefault.default)}#icon-loader"></use>
+          <use href="src/img/icons.svg#icon-loader"></use>
         </svg>
       </div>
     `;
@@ -1984,14 +1982,14 @@ class RecipeView {
     <div class="recipe__details">
       <div class="recipe__info">
         <svg class="recipe__info-icon">
-          <use href="${0, _iconsSvgDefault.default}#icon-clock"></use>
+          <use href="src/img/icons.svg#icon-clock"></use>
         </svg>
         <span class="recipe__info-data recipe__info-data--minutes">${this.#data.cookingTime}</span>
         <span class="recipe__info-text">minutes</span>
       </div>
       <div class="recipe__info">
         <svg class="recipe__info-icon">
-          <use href="${0, _iconsSvgDefault.default}#icon-users"></use>
+          <use href="src/img/icons.svg#icon-users"></use>
         </svg>
         <span class="recipe__info-data recipe__info-data--people">${this.#data.servings}</span>
         <span class="recipe__info-text">servings</span>
@@ -1999,12 +1997,12 @@ class RecipeView {
         <div class="recipe__info-buttons">
           <button class="btn--tiny btn--decrease-servings">
             <svg>
-              <use href="${0, _iconsSvgDefault.default}#icon-minus-circle"></use>
+              <use href="src/img/icons.svg#icon-minus-circle"></use>
             </svg>
           </button>
           <button class="btn--tiny btn--increase-servings">
             <svg>
-              <use href="${0, _iconsSvgDefault.default}#icon-plus-circle"></use>
+              <use href="src/img/icons.svg#icon-plus-circle"></use>
             </svg>
           </button>
         </div>
@@ -2012,13 +2010,13 @@ class RecipeView {
       
       <div class="recipe__user-generated">
         <svg>
-          <use href="${0, _iconsSvgDefault.default}#icon-user"></use>
+          <use href="src/img/icons.svg#icon-user"></use>
         </svg>
       </div>
       
       <button class="btn--round">
         <svg>
-          <use href="${0, _iconsSvgDefault.default}#icon-bookmark-fill"></use>
+          <use href="src/img/icons.svg#icon-bookmark-fill"></use>
         </svg>
       </button>
     </div>
@@ -2040,7 +2038,7 @@ class RecipeView {
       <a class="btn--small recipe__btn" href="${this.#data.sourceUrl}" target="_blank">
         <span>Directions</span>
         <svg class="search__icon">
-          <use href="${0, _iconsSvgDefault.default}#icon-arrow-right"></use>
+          <use href="src/img/icons.svg#icon-arrow-right"></use>
         </svg>
       </a>
     </div>`;
@@ -2049,7 +2047,7 @@ class RecipeView {
         return `
       <li class="recipe__ingredient">
         <svg class="recipe__icon">
-          <use href="${0, _iconsSvgDefault.default}#icon-check"></use>
+          <use href="src/img/icons.svg#icon-check"></use>
         </svg>
         <div class="recipe__quantity">${ing.quantity ? new (0, _fractionJsDefault.default)(ing.quantity).toFraction(true) : ''}</div>
         <div class="recipe__description">
@@ -2062,45 +2060,7 @@ class RecipeView {
 }
 exports.default = new RecipeView();
 
-},{"../../img/icons.svg":"cMpiy","fraction.js":"cNkjY","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cMpiy":[function(require,module,exports,__globalThis) {
-module.exports = require("17cff2908589362b").getBundleURL('hWUTQ') + "icons.21bad73c.svg" + "?" + Date.now();
-
-},{"17cff2908589362b":"lgJ39"}],"lgJ39":[function(require,module,exports,__globalThis) {
-"use strict";
-var bundleURL = {};
-function getBundleURLCached(id) {
-    var value = bundleURL[id];
-    if (!value) {
-        value = getBundleURL();
-        bundleURL[id] = value;
-    }
-    return value;
-}
-function getBundleURL() {
-    try {
-        throw new Error();
-    } catch (err) {
-        var matches = ('' + err.stack).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^)\n]+/g);
-        if (matches) // The first two stack frames will be this function and getBundleURLCached.
-        // Use the 3rd one, which will be a runtime in the original bundle.
-        return getBaseURL(matches[2]);
-    }
-    return '/';
-}
-function getBaseURL(url) {
-    return ('' + url).replace(/^((?:https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/.+)\/[^/]+$/, '$1') + '/';
-}
-// TODO: Replace uses with `new URL(url).origin` when ie11 is no longer supported.
-function getOrigin(url) {
-    var matches = ('' + url).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^/]+/);
-    if (!matches) throw new Error('Origin not found');
-    return matches[0];
-}
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-exports.getOrigin = getOrigin;
-
-},{}],"cNkjY":[function(require,module,exports,__globalThis) {
+},{"fraction.js":"cNkjY","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cNkjY":[function(require,module,exports,__globalThis) {
 /*
 Fraction.js v5.2.1 11/17/2024
 https://raw.org/article/rational-numbers-in-javascript/
