@@ -2,4 +2,7 @@
 % npm i parcel -D
 % npm start
 
+rm -rf .parcel-cache
+npm start
+
 "build": "parcel build index.html --public-url ./",
