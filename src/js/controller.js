@@ -27,9 +27,15 @@ const renderSpinner = function (parentEl) {
 
 const showRecipe = async function () {
   try {
+    const id = window.location.hash.slice(1);
+    console.log(id);
+
+    if (!id) return;
+
+    // Show loading spinner
     renderSpinner(recipeContainer);
-    const recipeURL =
-      'https://forkify-api.jonas.io/api/v2/recipes/5ed6604591c37cdc054bc886';
+
+    const recipeURL = `https://forkify-api.jonas.io/api/v2/recipes/${id}`;
     const res = await fetch(recipeURL);
     const data = await res.json();
 
@@ -146,7 +152,7 @@ const showRecipe = async function () {
           </svg>
         </a>
       </div>`;
-    
+
     recipeContainer.innerHTML = '';
     recipeContainer.insertAdjacentHTML('afterbegin', markup);
   } catch (err) {
@@ -154,4 +160,5 @@ const showRecipe = async function () {
   }
 };
 
-showRecipe();
+// Listen for URL hash changes or page load to update and display the recipe
+['hashchange', 'load'].forEach(ev => window.addEventListener(ev, showRecipe));
