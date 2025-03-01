@@ -613,11 +613,10 @@ const showRecipe = async function() {
         alert(err);
     }
 };
-// Listen for URL hash changes or page load to update and display the recipe
-[
-    'hashchange',
-    'load'
-].forEach((ev)=>window.addEventListener(ev, showRecipe));
+const init = function() {
+    (0, _recipeViewDefault.default).addHandlerRender(showRecipe);
+};
+init();
 
 },{"core-js/modules/web.immediate.js":"49tUX","./model":"Y4A21","./views/recipeView":"l60JC","regenerator-runtime/runtime":"dXNgZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"49tUX":[function(require,module,exports,__globalThis) {
 'use strict';
@@ -1996,6 +1995,13 @@ class RecipeView {
         this.#clear();
         this.#parentElement.insertAdjacentHTML('afterbegin', markup);
     };
+    addHandlerRender(handler) {
+        // Listen for URL hash changes or page load to update and display the recipe
+        [
+            'hashchange',
+            'load'
+        ].forEach((ev)=>window.addEventListener(ev, handler));
+    }
     #generateMarkup() {
         return `
     <figure class="recipe__fig">

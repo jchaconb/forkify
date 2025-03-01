@@ -20,5 +20,7 @@ const showRecipe = async function () {
   }
 };
 
-// Listen for URL hash changes or page load to update and display the recipe
-['hashchange', 'load'].forEach(ev => window.addEventListener(ev, showRecipe));
+const init = function () {
+  recipeView.addHandlerRender(showRecipe);
+};
+init();
