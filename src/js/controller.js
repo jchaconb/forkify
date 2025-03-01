@@ -4,7 +4,7 @@ import recipeView from './views/recipeView';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
-const showRecipe = async function () {
+const controlRecipes = async function () {
   try {
     const id = window.location.hash.slice(1);
 
@@ -16,11 +16,11 @@ const showRecipe = async function () {
 
     recipeView.render(model.state.recipe);
   } catch (err) {
-    alert(err);
+    recipeView.renderError();
   }
 };
 
 const init = function () {
-  recipeView.addHandlerRender(showRecipe);
+  recipeView.addHandlerRender(controlRecipes);
 };
 init();
