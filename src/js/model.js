@@ -6,7 +6,7 @@ export const state = {
   search: {
     query: '',
     results: [],
-    page: 0,
+    page: 1,
     resultsPerPage: RES_PER_PAGE,
   },
 };
