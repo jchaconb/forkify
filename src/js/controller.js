@@ -7,6 +7,8 @@ import bookmarksView from './views/bookmarksView';
 import addRecipeView from './views/addRecipeView';
 import logoLinkView from './views/logoLinkView';
 
+import { MODAL_CLOSE_SEC } from './config';
+
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
@@ -76,8 +78,24 @@ const controlBookmarks = function () {
   bookmarksView.render(model.state.bookmarks);
 };
 
-const controlAddRecipe = function (newRecipe) {
-  console.log(newRecipe);
+const controlAddRecipe = async function (newRecipe) {
+  try {
+    addRecipeView.renderSpinner();
+
+    await model.uploadRecipe(newRecipe);
+    console.log(model.state.recipe);
+
+    recipeView.render(model.state.recipe);
+
+    addRecipeView.renderMessage();
+
+    setTimeout(function () {
+      addRecipeView.toggleWindow();
+    }, MODAL_CLOSE_SEC * 1000);
+  } catch (err) {
+    console.error(`controlAddRecipe: ${err}`);
+    addRecipeView.renderError(err.message);
+  }
 };
 
 const init = function () {
