@@ -641,9 +641,16 @@ const controlServings = function(newServings) {
     _model.updateServings(newServings);
     (0, _recipeViewDefault.default).update(_model.state.recipe);
 };
+const controlAddBookmark = function() {
+    if (!_model.state.recipe.bookmarked) _model.addBookmark(_model.state.recipe);
+    else if (_model.state.recipe.bookmarked) _model.deleteBookmark(_model.state.recipe.id);
+    console.log(_model.state.bookmarks);
+    (0, _recipeViewDefault.default).update(_model.state.recipe);
+};
 const init = function() {
     (0, _recipeViewDefault.default).addHandlerRender(controlRecipes);
     (0, _recipeViewDefault.default).addHandlerUpdateServings(controlServings);
+    (0, _recipeViewDefault.default).addHandlerAddBookmar(controlAddBookmark);
     (0, _searchViewDefault.default).addHandlerSearch(controlSearchResults);
     (0, _paginationViewDefault.default).addHandlerClick(controlPagination);
 };
@@ -1910,6 +1917,8 @@ parcelHelpers.export(exports, "loadRecipe", ()=>loadRecipe);
 parcelHelpers.export(exports, "loadSearchResults", ()=>loadSearchResults);
 parcelHelpers.export(exports, "getSearchResultsPage", ()=>getSearchResultsPage);
 parcelHelpers.export(exports, "updateServings", ()=>updateServings);
+parcelHelpers.export(exports, "addBookmark", ()=>addBookmark);
+parcelHelpers.export(exports, "deleteBookmark", ()=>deleteBookmark);
 var _config = require("./config");
 var _helpers = require("./helpers");
 const state = {
@@ -1919,7 +1928,8 @@ const state = {
         results: [],
         page: 1,
         resultsPerPage: (0, _config.RES_PER_PAGE)
-    }
+    },
+    bookmarks: []
 };
 const loadRecipe = async function(id) {
     try {
@@ -1935,6 +1945,8 @@ const loadRecipe = async function(id) {
             cookingTime: recipe.cooking_time,
             ingredients: recipe.ingredients
         };
+        if (state.bookmarks.some((bookmark)=>bookmark.id === id)) state.recipe.bookmarked = true;
+        else state.recipe.bookmarked = false;
     } catch (err) {
         // Temp error handling
         console.error(`Model#loadRecipe ${err} \u{1F4A5}\u{1F4A5}\u{1F4A5}\u{1F4A5}`);
@@ -1953,6 +1965,7 @@ const loadSearchResults = async function(query) {
                 image: rec.image_url
             };
         });
+        state.search.page = 1;
     } catch (err) {
         console.error(`Model#loadSearchResults ${err} \u{1F4A5}\u{1F4A5}\u{1F4A5}\u{1F4A5}`);
         throw err;
@@ -1969,6 +1982,15 @@ const updateServings = function(newServings) {
         ing.quantity = ing.quantity * newServings / state.recipe.servings;
     });
     state.recipe.servings = newServings;
+};
+const addBookmark = function(recipe) {
+    state.bookmarks.push(recipe);
+    if (recipe.id === state.recipe.id) state.recipe.bookmarked = true;
+};
+const deleteBookmark = function(id) {
+    const index = state.bookmarks.findIndex((el)=>el.id === id);
+    state.bookmarks.splice(index, 1);
+    if (id === state.recipe.id) state.recipe.bookmarked = false;
 };
 
 },{"./config":"k5Hzs","./helpers":"hGI1E","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"k5Hzs":[function(require,module,exports,__globalThis) {
@@ -2065,6 +2087,13 @@ class RecipeView extends (0, _viewDefault.default) {
             if (updateTo > 0) handler(+updateTo);
         });
     }
+    addHandlerAddBookmar(handler) {
+        this._parentElement.addEventListener('click', function(e) {
+            const btn = e.target.closest('.btn--bookmark');
+            if (!btn) return;
+            handler();
+        });
+    }
     _generateMarkupIngredient(ing) {
         return `
       <li class="recipe__ingredient">
@@ -2123,9 +2152,9 @@ class RecipeView extends (0, _viewDefault.default) {
         </svg>
       </div>
       
-      <button class="btn--round">
+      <button class="btn--round btn--bookmark">
         <svg>
-          <use href="${0, _iconsSvgDefault.default}#icon-bookmark-fill"></use>
+          <use href="${0, _iconsSvgDefault.default}#icon-bookmark${this._data.bookmarked ? '-fill' : ''}"></use>
         </svg>
       </button>
     </div>
