@@ -3480,7 +3480,7 @@ class addLogoLinkView extends (0, _viewDefault.default) {
     _addHandlerLogoLink() {
         this._logo.addEventListener('click', function(e) {
             e.preventDefault();
-            window.history.replaceState(null, '', window.location.pathname);
+            window.location.href = window.location.origin + window.location.pathname;
         });
     }
 }
