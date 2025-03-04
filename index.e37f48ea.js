@@ -611,6 +611,8 @@ var _bookmarksView = require("./views/bookmarksView");
 var _bookmarksViewDefault = parcelHelpers.interopDefault(_bookmarksView);
 var _addRecipeView = require("./views/addRecipeView");
 var _addRecipeViewDefault = parcelHelpers.interopDefault(_addRecipeView);
+var _addLogoLinkView = require("./views/addLogoLinkView");
+var _addLogoLinkViewDefault = parcelHelpers.interopDefault(_addLogoLinkView);
 var _runtime = require("regenerator-runtime/runtime");
 if (module.hot) module.hot.accept();
 const controlRecipes = async function() {
@@ -670,7 +672,7 @@ const init = function() {
 };
 init();
 
-},{"core-js/modules/web.immediate.js":"49tUX","./model":"Y4A21","./views/recipeView":"l60JC","./views/searchView":"9OQAM","./views/resultsView":"cSbZE","./views/paginationView":"6z7bi","./views/bookmarksView":"4Lqzq","regenerator-runtime/runtime":"dXNgZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./views/addRecipeView":"i6DNj"}],"49tUX":[function(require,module,exports,__globalThis) {
+},{"core-js/modules/web.immediate.js":"49tUX","./model":"Y4A21","./views/recipeView":"l60JC","./views/searchView":"9OQAM","./views/resultsView":"cSbZE","./views/paginationView":"6z7bi","./views/bookmarksView":"4Lqzq","./views/addRecipeView":"i6DNj","regenerator-runtime/runtime":"dXNgZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./views/addLogoLinkView":"l3JTM"}],"49tUX":[function(require,module,exports,__globalThis) {
 'use strict';
 // TODO: Remove this module from `core-js@4` since it's split to modules listed below
 require("52e9b3eefbbce1ed");
@@ -2838,7 +2840,48 @@ class BookmarksView extends (0, _viewDefault.default) {
 }
 exports.default = new BookmarksView();
 
-},{"./view":"bWlJ9","./previewView":"1FDQ6","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dXNgZ":[function(require,module,exports,__globalThis) {
+},{"./view":"bWlJ9","./previewView":"1FDQ6","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"i6DNj":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _view = require("./view");
+var _viewDefault = parcelHelpers.interopDefault(_view);
+class AddRecipeView extends (0, _viewDefault.default) {
+    _parentElement = document.querySelector('.upload');
+    _window = document.querySelector('.add-recipe-window');
+    _overlay = document.querySelector('.overlay');
+    _btnOpen = document.querySelector('.nav__btn--add-recipe');
+    _btnClose = document.querySelector('.btn--close-modal');
+    constructor(){
+        super();
+        this._addHandlerShowWindow();
+        this._addHandlerHideWindow();
+    }
+    _toggleWindow() {
+        this._overlay.classList.toggle('hidden');
+        this._window.classList.toggle('hidden');
+    }
+    _addHandlerShowWindow() {
+        this._btnOpen.addEventListener('click', this._toggleWindow.bind(this));
+    }
+    _addHandlerHideWindow() {
+        this._btnClose.addEventListener('click', this._toggleWindow.bind(this));
+        this._overlay.addEventListener('click', this._toggleWindow.bind(this));
+    }
+    addHandlerUpload(handler) {
+        this._parentElement.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const dataArr = [
+                ...new FormData(this)
+            ];
+            const data = Object.fromEntries(dataArr);
+            handler(data);
+        });
+    }
+    _generateMarkup() {}
+}
+exports.default = new AddRecipeView();
+
+},{"./view":"bWlJ9","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dXNgZ":[function(require,module,exports,__globalThis) {
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *
@@ -3423,46 +3466,25 @@ try {
     else Function("r", "regeneratorRuntime = r")(runtime);
 }
 
-},{}],"i6DNj":[function(require,module,exports,__globalThis) {
+},{}],"l3JTM":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _view = require("./view");
 var _viewDefault = parcelHelpers.interopDefault(_view);
-class AddRecipeView extends (0, _viewDefault.default) {
-    _parentElement = document.querySelector('.upload');
-    _window = document.querySelector('.add-recipe-window');
-    _overlay = document.querySelector('.overlay');
-    _btnOpen = document.querySelector('.nav__btn--add-recipe');
-    _btnClose = document.querySelector('.btn--close-modal');
+class addLogoLinkView extends (0, _viewDefault.default) {
+    _logo = document.querySelector('.logo__link');
     constructor(){
         super();
-        this._addHandlerShowWindow();
-        this._addHandlerHideWindow();
+        this._addHandlerLogoLink();
     }
-    _toggleWindow() {
-        this._overlay.classList.toggle('hidden');
-        this._window.classList.toggle('hidden');
-    }
-    _addHandlerShowWindow() {
-        this._btnOpen.addEventListener('click', this._toggleWindow.bind(this));
-    }
-    _addHandlerHideWindow() {
-        this._btnClose.addEventListener('click', this._toggleWindow.bind(this));
-        this._overlay.addEventListener('click', this._toggleWindow.bind(this));
-    }
-    addHandlerUpload(handler) {
-        this._parentElement.addEventListener('submit', function(e) {
+    _addHandlerLogoLink() {
+        this._logo.addEventListener('click', function(e) {
             e.preventDefault();
-            const dataArr = [
-                ...new FormData(this)
-            ];
-            const data = Object.fromEntries(dataArr);
-            handler(data);
+            window.history.replaceState(null, '', window.location.pathname);
         });
     }
-    _generateMarkup() {}
 }
-exports.default = new AddRecipeView();
+exports.default = new addLogoLinkView();
 
 },{"./view":"bWlJ9","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["ik2hV","aenu9"], "aenu9", "parcelRequire94c2")
 
